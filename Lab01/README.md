@@ -1,162 +1,162 @@
 # Lab 01 - SecureValidator
 
-## 1. Thong tin bai lam
+## 1. Thông tin bài làm
 
-- **Mon hoc:** Thuc hanh Lap trinh An ninh thong tin
-- **Bai:** Lab 01 - Xay dung cac ham kiem tra va xu ly du lieu dau vao an toan
-- **Ung dung:** SecureValidator
-- **Cong nghe:** Python, Flask, HTML/Jinja2, unittest
+- **Môn học:** Thực hành Lập trình An ninh thông tin
+- **Bài:** Lab 01 - Xây dựng các hàm kiểm tra và xử lý dữ liệu đầu vào an toàn
+- **Ứng dụng:** SecureValidator
+- **Công nghệ:** Python, Flask, HTML/Jinja2, unittest
 
-## 2. Muc tieu
+## 2. Mục tiêu
 
-Lab 01 xay dung mot ung dung web don gian cho phep nguoi dung nhap du lieu va kiem tra cac truong hop dau vao pho bien trong an ninh ung dung web. Bai lam tap trung vao:
+Lab 01 xây dựng một ứng dụng web đơn giản cho phép người dùng nhập dữ liệu và kiểm tra các trường hợp đầu vào phổ biến trong an ninh ứng dụng web. Bài làm tập trung vào:
 
-1. Kiem tra dinh dang email.
-2. Kiem tra URL chi su dung giao thuc HTTP/HTTPS.
-3. Ngan chan path traversal thong qua ten file.
-4. Loc mot so ky tu va tu khoa nguy hiem trong chuoi SQL.
-5. Ma hoa HTML de giam nguy co Cross-Site Scripting (XSS).
-6. Viet unit test cho cac truong hop hop le, khong hop le va payload tan cong mau.
+1. Kiểm tra định dạng email.
+2. Kiểm tra URL chỉ sử dụng giao thức HTTP/HTTPS.
+3. Ngăn chặn path traversal thông qua tên file.
+4. Lọc một số ký tự và từ khóa nguy hiểm trong chuỗi SQL.
+5. Mã hóa HTML để giảm nguy cơ Cross-Site Scripting (XSS).
+6. Viết unit test cho các trường hợp hợp lệ, không hợp lệ và payload tấn công mẫu.
 
-## 3. Cau truc thu muc
+## 3. Cấu trúc thư mục
 
 ```text
 Lab01/
-|-- app.py                         # Ung dung Flask va route xu ly form
-|-- requirements.txt               # Danh sach thu vien Python
+|-- app.py                         # Ứng dụng Flask và route xử lý form
+|-- requirements.txt               # Danh sách thư viện Python
 |-- securevalidator/
-|   |-- __init__.py                # Export cac ham validator
-|   `-- core.py                    # Cac ham kiem tra va lam sach du lieu
+|   |-- __init__.py                # Export các hàm validator
+|   `-- core.py                    # Các hàm kiểm tra và làm sạch dữ liệu
 |-- templates/
-|   `-- index.html                 # Giao dien nhap lieu va hien thi ket qua
+|   `-- index.html                 # Giao diện nhập liệu và hiển thị kết quả
 `-- tests/
-    `-- test_validators.py         # Unit test cho cac ham xu ly
+    `-- test_validators.py         # Unit test cho các hàm xử lý
 ```
 
-## 4. Mo ta chuc nang
+## 4. Mô tả chức năng
 
-### 4.1. Kiem tra email
+### 4.1. Kiểm tra email
 
-Ham `validate_email()` su dung bieu thuc chinh quy de kiem tra email co dang co ban:
+Hàm `validate_email()` sử dụng biểu thức chính quy để kiểm tra email có dạng cơ bản:
 
 ```text
-<ten>@<mien>.<duoi>
+<tên>@<miền>.<đuôi>
 ```
 
-Vi du:
+Ví dụ:
 
-- `user@example.com` duoc chap nhan.
-- `user@@example..com` bi tu choi.
+- `user@example.com` được chấp nhận.
+- `user@@example..com` bị từ chối.
 
-Ham tra ve `True` neu email hop le theo mau va `False` neu khong khop. Day la kiem tra dinh dang co ban, khong xac nhan email co ton tai that hay co the nhan thu.
+Hàm trả về `True` nếu email hợp lệ theo mẫu và `False` nếu không khớp. Đây là kiểm tra định dạng cơ bản, không xác nhận email có tồn tại thật hay có thể nhận thư.
 
-### 4.2. Kiem tra URL
+### 4.2. Kiểm tra URL
 
-Ham `validate_url()` phan tich URL bang `urllib.parse.urlparse()` va chi chap nhan:
+Hàm `validate_url()` phân tích URL bằng `urllib.parse.urlparse()` và chỉ chấp nhận:
 
-- Scheme la `http` hoac `https`.
-- URL co `netloc`.
+- Scheme là `http` hoặc `https`.
+- URL có `netloc`.
 
-Vi du:
+Ví dụ:
 
-- `https://example.com` duoc chap nhan.
-- `ftp://example.com` bi tu choi.
+- `https://example.com` được chấp nhận.
+- `ftp://example.com` bị từ chối.
 
-Muc dich cua ham la loai bo cac URL sai giao thuc o muc co ban. Day khong phai la co che SSRF day du; neu ung dung thuc hien request toi URL do, can bo sung kiem tra DNS, dia chi IP noi bo, redirect va danh sach cho phep domain.
+Mục đích của hàm là loại bỏ các URL sai giao thức ở mức cơ bản. Đây không phải là cơ chế SSRF đầy đủ; nếu ứng dụng thực hiện request tới URL đó, cần bổ sung kiểm tra DNS, địa chỉ IP nội bộ, redirect và danh sách cho phép domain.
 
-### 4.3. Kiem tra ten file va path traversal
+### 4.3. Kiểm tra tên file và path traversal
 
-Ham `validate_filename()` ngan chan cac dau hieu path traversal bang cach tu choi:
+Hàm `validate_filename()` ngăn chặn các dấu hiệu path traversal bằng cách từ chối:
 
-- Chuoi `..`.
-- Dau `/`.
-- Dau `\\`.
-- Ten khong trung voi ket qua cua `os.path.basename()`.
+- Chuỗi `..`.
+- Dấu `/`.
+- Dấu `\\`.
+- Tên không trùng với kết quả của `os.path.basename()`.
 
-Vi du:
+Ví dụ:
 
-- `report.pdf` duoc chap nhan.
-- `../../etc/passwd` bi tu choi.
+- `report.pdf` được chấp nhận.
+- `../../etc/passwd` bị từ chối.
 
-Ham phu hop de kiem tra ten file don gian. Khi xu ly upload file trong he thong that, van can them gioi han phan mo rong, kich thuoc, noi dung file va luu file vao thu muc an toan.
+Hàm phù hợp để kiểm tra tên file đơn giản. Khi xử lý upload file trong hệ thống thật, vẫn cần thêm giới hạn phần mở rộng, kích thước, nội dung file và lưu file vào thư mục an toàn.
 
-### 4.4. Lam sach dau vao SQL
+### 4.4. Làm sạch đầu vào SQL
 
-Ham `sanitize_sql_input()` thuc hien hai buoc:
+Hàm `sanitize_sql_input()` thực hiện hai bước:
 
-1. Loai bo mot so ky tu dac biet: `--`, `;`, dau nhay don, dau nhay kep va `#`.
-2. Loai bo mot so tu khoa SQL pho bien: `OR`, `AND`, `SELECT`, `INSERT`, `DELETE`, `UPDATE`, `DROP`, `UNION`, `WHERE`.
+1. Loại bỏ một số ký tự đặc biệt: `--`, `;`, dấu nháy đơn, dấu nháy kép và `#`.
+2. Loại bỏ một số từ khóa SQL phổ biến: `OR`, `AND`, `SELECT`, `INSERT`, `DELETE`, `UPDATE`, `DROP`, `UNION`, `WHERE`.
 
-Vi du payload kiem thu:
+Ví dụ payload kiểm thử:
 
 ```text
 '' OR 1=1 --
 ```
 
-Sau khi xu ly, cac thanh phan nguy hiem mau se bi loai bo.
+Sau khi xử lý, các thành phần nguy hiểm mẫu sẽ bị loại bỏ.
 
-> **Luu y bao mat:** Cach loc theo blacklist chi mang tinh minh hoa cho bai lab va khong thay the prepared statement. Trong ung dung thuc te, phai dung parameterized query/ORM va khong noi chuoi SQL truc tiep tu dau vao nguoi dung.
+> **Lưu ý bảo mật:** Cách lọc theo blacklist chỉ mang tính minh họa cho bài lab và không thay thế prepared statement. Trong ứng dụng thực tế, phải dùng parameterized query/ORM và không nối chuỗi SQL trực tiếp từ đầu vào người dùng.
 
-### 4.5. Ma hoa dau vao HTML
+### 4.5. Mã hóa đầu vào HTML
 
-Ham `sanitize_html_input()` su dung `html.escape()` de chuyen cac ky tu HTML dac biet thanh entity an toan.
+Hàm `sanitize_html_input()` sử dụng `html.escape()` để chuyển các ký tự HTML đặc biệt thành entity an toàn.
 
-Vi du:
+Ví dụ:
 
 ```html
 <script>alert('XSS')</script>
 ```
 
-duoc chuyen thanh:
+được chuyển thành:
 
 ```text
 &lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;
 ```
 
-Cach nay ngan trinh duyet dien giai chuoi dau vao nhu mot the HTML/script khi chuoi duoc hien thi tren giao dien.
+Cách này ngăn trình duyệt diễn giải chuỗi đầu vào như một thẻ HTML/script khi chuỗi được hiển thị trên giao diện.
 
-## 5. Luong xu ly ung dung
+## 5. Luồng xử lý ứng dụng
 
-1. Nguoi dung truy cap route `/` bang phuong thuc `GET`.
-2. Flask hien thi form trong `templates/index.html`.
-3. Khi submit form bang `POST`, ung dung doc 5 truong:
+1. Người dùng truy cập route `/` bằng phương thức `GET`.
+2. Flask hiển thị form trong `templates/index.html`.
+3. Khi submit form bằng `POST`, ứng dụng đọc 5 trường:
    - `email`
    - `url`
    - `filename`
    - `sql`
    - `html`
-4. Du lieu duoc chuyen qua cac ham trong package `securevalidator`.
-5. Ket qua validation va gia tri da xu ly duoc truyen lai template.
-6. Giao dien hien thi trang thai hop le/khong hop le, chuoi SQL da loc va chuoi HTML da escape.
+4. Dữ liệu được chuyển qua các hàm trong package `securevalidator`.
+5. Kết quả validation và giá trị đã xử lý được truyền lại template.
+6. Giao diện hiển thị trạng thái hợp lệ/không hợp lệ, chuỗi SQL đã lọc và chuỗi HTML đã escape.
 
-## 6. Giao dien
+## 6. Giao diện
 
-Giao dien duoc viet bang HTML/Jinja2 va su dung Pico.css tu CDN. Form gom 5 truong dau vao va hien thi ket qua ngay tren cung trang sau khi submit.
+Giao diện được viết bằng HTML/Jinja2 và sử dụng Pico.css từ CDN. Form gồm 5 trường đầu vào và hiển thị kết quả ngay trên cùng trang sau khi submit.
 
-- Mau xanh: du lieu hop le.
-- Mau do: du lieu khong hop le.
-- SQL: hien thi chuoi sau khi loc.
-- HTML: hien thi chuoi sau khi ma hoa.
+- Màu xanh: dữ liệu hợp lệ.
+- Màu đỏ: dữ liệu không hợp lệ.
+- SQL: hiển thị chuỗi sau khi lọc.
+- HTML: hiển thị chuỗi sau khi mã hóa.
 
-Template su dung `{{ ... }}` cua Jinja2 de render ket qua. Cac gia tri trong template duoc Jinja2 auto-escape khi hien thi trong HTML.
+Template sử dụng `{{ ... }}` của Jinja2 để render kết quả. Các giá trị trong template được Jinja2 auto-escape khi hiển thị trong HTML.
 
-## 7. Kiem thu
+## 7. Kiểm thử
 
-File `tests/test_validators.py` su dung `unittest` va bao gom cac nhom test sau:
+File `tests/test_validators.py` sử dụng `unittest` và bao gồm các nhóm test sau:
 
-| Nhom | Noi dung |
+| Nhóm | Nội dung |
 |---|---|
-| Email | Email hop le va email sai dinh dang |
-| URL | URL HTTP/HTTPS hop le va URL FTP khong hop le |
-| Filename | Ten file hop le va payload path traversal |
-| SQL | Payload SQL injection mau va van ban thong thuong |
-| HTML | Payload XSS mau va van ban thong thuong |
+| Email | Email hợp lệ và email sai định dạng |
+| URL | URL HTTP/HTTPS hợp lệ và URL FTP không hợp lệ |
+| Filename | Tên file hợp lệ và payload path traversal |
+| SQL | Payload SQL injection mẫu và văn bản thông thường |
+| HTML | Payload XSS mẫu và văn bản thông thường |
 
-Tong cong co 10 test case, bao gom ca truong hop du lieu an toan va du lieu co dau hieu tan cong.
+Tổng cộng có 10 test case, bao gồm cả trường hợp dữ liệu an toàn và dữ liệu có dấu hiệu tấn công.
 
-## 8. Cai dat va chay ung dung
+## 8. Cài đặt và chạy ứng dụng
 
-### 8.1. Tao moi truong ao
+### 8.1. Tạo môi trường ảo
 
 Windows PowerShell:
 
@@ -172,62 +172,62 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 8.2. Cai dat thu vien
+### 8.2. Cài đặt thư viện
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 8.3. Chay ung dung
+### 8.3. Chạy ứng dụng
 
 ```bash
 python app.py
 ```
 
-Sau do mo trinh duyet tai:
+Sau đó mở trình duyệt tại:
 
 ```text
 http://127.0.0.1:5000
 ```
 
-Ung dung dang bat `debug=True` de phuc vu hoc tap va phat trien. Khong nen bat debug khi trien khai cong khai.
+Ứng dụng đang bật `debug=True` để phục vụ học tập và phát triển. Không nên bật debug khi triển khai công khai.
 
-### 8.4. Chay unit test
+### 8.4. Chạy unit test
 
-Tu thu muc `Lab01`:
+Từ thư mục `Lab01`:
 
 ```bash
 python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-Hoac:
+Hoặc:
 
 ```bash
 python -m unittest tests.test_validators -v
 ```
 
-## 9. Danh gia bao mat
+## 9. Đánh giá bảo mật
 
-### Da thuc hien
+### Đã thực hiện
 
-- Kiem tra dinh dang email bang regex.
-- Gioi han URL ve HTTP/HTTPS.
-- Chan mot so mau path traversal trong ten file.
-- Loai bo mot so ky tu va tu khoa SQL nguy hiem mau.
-- Escape HTML de phong chong XSS khi hien thi dau vao.
-- Co unit test cho cac truong hop tan cong co ban.
+- Kiểm tra định dạng email bằng regex.
+- Giới hạn URL về HTTP/HTTPS.
+- Chặn một số mẫu path traversal trong tên file.
+- Loại bỏ một số ký tự và từ khóa SQL nguy hiểm mẫu.
+- Escape HTML để phòng chống XSS khi hiển thị đầu vào.
+- Có unit test cho các trường hợp tấn công cơ bản.
 
-### Gioi han va huong phat trien
+### Giới hạn và hướng phát triển
 
-- Validator email chua bao phu toan bo RFC va khong xac minh email ton tai.
-- Kiem tra URL chua phai co che chong SSRF day du.
-- Loc SQL bang blacklist khong du an toan cho he thong thuc te; can dung parameterized query.
-- Nen bo sung CSRF protection cho form.
-- Nen them gioi han do dai va kiem tra truong bi thieu trong request.
-- Nen tat `debug=True` khi deploy.
-- Nen bo sung Content Security Policy, HTTPS va cookie security flags khi trien khai.
-- Nen bo sung test boundary, Unicode, input rong va input rat dai.
+- Validator email chưa bao phủ toàn bộ RFC và không xác minh email tồn tại.
+- Kiểm tra URL chưa phải cơ chế chống SSRF đầy đủ.
+- Lọc SQL bằng blacklist không đủ an toàn cho hệ thống thực tế; cần dùng parameterized query.
+- Nên bổ sung CSRF protection cho form.
+- Nên thêm giới hạn độ dài và kiểm tra trường bị thiếu trong request.
+- Nên tắt `debug=True` khi deploy.
+- Nên bổ sung Content Security Policy, HTTPS và cookie security flags khi triển khai.
+- Nên bổ sung test boundary, Unicode, input rỗng và input rất dài.
 
-## 10. Ket luan
+## 10. Kết luận
 
-Lab 01 da xay dung duoc mot ung dung Flask nho de minh hoa cac ky thuat validation va sanitization dau vao. Cac ham duoc tach rieng trong package `securevalidator`, co giao dien de thao tac va co unit test cho cac truong hop co ban. Qua bai lam, co the thay rang validation va escaping la lop bao ve dau vao quan trong, nhung trong ung dung thuc te can ket hop them prepared statement, CSRF protection, kiem soat SSRF va cac bien phap hardening khi trien khai.
+Lab 01 đã xây dựng được một ứng dụng Flask nhỏ để minh họa các kỹ thuật validation và sanitization đầu vào. Các hàm được tách riêng trong package `securevalidator`, có giao diện để thao tác và có unit test cho các trường hợp cơ bản. Qua bài làm, có thể thấy rằng validation và escaping là lớp bảo vệ đầu vào quan trọng, nhưng trong ứng dụng thực tế cần kết hợp thêm prepared statement, CSRF protection, kiểm soát SSRF và các biện pháp hardening khi triển khai.
