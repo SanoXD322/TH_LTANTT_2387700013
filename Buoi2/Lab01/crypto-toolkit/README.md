@@ -3,13 +3,17 @@
 SecureCrypto là toolkit Python cho một số thao tác mật mã cơ bản: mã hóa tệp bằng AES-GCM, băm mật khẩu với Argon2, tạo chữ ký RSA và kiểm tra chữ ký. Dự án cung cấp CLI, giao diện desktop Tkinter và API HTTP Flask.
 
 > Đây là dự án học tập, chưa được đánh giá bảo mật độc lập. Không dùng API Flask trực tiếp trên Internet hoặc để bảo vệ dữ liệu quan trọng.
+> 
+<img width="1917" height="1078" alt="Screenshot 2026-09-30 205839" src="https://github.com/user-attachments/assets/0eaa8617-2dc4-471d-95d0-7888d9b88d1f" />
 
 ## Tính năng
+
 
 - Mã hóa và giải mã tệp bằng AES-GCM; khóa được dẫn xuất từ mật khẩu qua PBKDF2-HMAC-SHA256.
 - Băm mật khẩu bằng Argon2.
 - Tạo cặp khóa RSA 2048-bit, ký dữ liệu với SHA-256 và xác minh chữ ký.
 - Sử dụng chức năng mã hóa/giải mã tệp từ CLI, Tkinter GUI hoặc Flask API.
+<img width="1917" height="1078" alt="Screenshot 2026-09-30 210114" src="https://github.com/user-attachments/assets/01634ad2-ae03-453e-85bb-3b75e4dbb707" />
 
 ## Yêu cầu
 
