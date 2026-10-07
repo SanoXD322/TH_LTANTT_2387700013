@@ -135,22 +135,26 @@ Tạo thư mục `images` cùng cấp với README này rồi lưu ảnh chụp 
 ### 11.1. Giao diện nhập thông tin quét
 
 <!-- Chèn ảnh giao diện web tại images/01-web-form.png -->
-![Hình 1: Giao diện nhập thông tin quét](./images/01-web-form.png)
+![Hình 1: Giao diện nhập thông tin quét]
+<img width="1392" height="565" alt="image" src="https://github.com/user-attachments/assets/abc15b6c-cf9d-4dc8-8322-70a757a98a5d" />
 
 ### 11.2. Kết quả hiển thị trên trang web
 
 <!-- Chèn ảnh kết quả trên trình duyệt tại images/02-web-result.png -->
-![Hình 2: Kết quả khảo sát hiển thị trên web](./images/02-web-result.png)
+![Hình 2: Kết quả khảo sát hiển thị trên web]
+<img width="916" height="927" alt="Screenshot 2026-10-07 095037" src="https://github.com/user-attachments/assets/05e0a184-1992-4bbf-be28-c9b8bad46a64" />
 
 ### 11.3. Kết quả chạy từ terminal
 
 <!-- Chèn ảnh terminal chạy NetRecon tại images/03-terminal-result.png -->
 ![Hình 3: Kết quả chạy NetRecon từ terminal](./images/03-terminal-result.png)
+<img width="635" height="151" alt="image" src="https://github.com/user-attachments/assets/f2e57907-297c-449d-95b1-17bd3777876c" />
 
 ### 11.4. Kết quả email (nếu đã cấu hình SMTP)
 
 <!-- Chèn ảnh email nhận được tại images/04-email-result.png -->
 ![Hình 4: Email kết quả NetRecon](./images/04-email-result.png)
+<img width="977" height="742" alt="image" src="https://github.com/user-attachments/assets/88c57b1a-6396-4d62-a41f-da7a46cd2f10" />
 
 ## 12. Kết luận
 
