@@ -54,11 +54,24 @@ Tệp giải mã được ghi thành `files/data.txt.dec`.
 
 ### Giao diện desktop
 
+Khởi chạy ứng dụng đồ họa Tkinter:
+
 ```powershell
 python -m securecrypto.app_gui
+# hoặc
+python securecrypto/app_gui.py
 ```
 
 Chọn tệp và nhập mật khẩu để mã hóa. Khi giải mã, nhập khóa Base64 được in ra lúc mã hóa vào ô mật khẩu.
+
+#### Minh họa hoạt động giao diện (GUI Demo)
+
+![Giao diện SecureCrypto GUI](docs/images/gui_demo.png)
+
+**Báo cáo thực nghiệm giao diện:**
+- **Khởi chạy ứng dụng:** Chạy tệp `securecrypto/app_gui.py`, cửa sổ đồ họa **SecureCrypto GUI** hiển thị với trường nhập mật khẩu (dạng ký tự ẩn `*`) cùng hai nút chức năng `Encrypt` và `Decrypt`.
+- **Thao tác mã hóa (`Encrypt`):** Khi bấm nút `Encrypt`, ứng dụng mở hộp thoại chọn tệp tin cần bảo vệ. Sau khi chọn tệp và nhập mật khẩu, chương trình dẫn xuất khóa qua PBKDF2, mã hóa tệp bằng thuật toán AES-GCM, sinh tệp `.enc` và hiển thị khóa AES dạng Base64 trên giao diện (ví dụ: `Key: oPuQ6fvARPHgv8ybi3P08hHlB0jtFQbRYbEb037BU=`).
+- **Thao tác giải mã (`Decrypt`):** Người dùng nhập khóa Base64 vừa nhận vào ô nhập liệu, bấm `Decrypt` và chọn tệp `.enc` để giải mã và phục hồi tệp gốc `.dec`.
 
 ### Flask API
 
@@ -100,11 +113,29 @@ is_valid = rsa_utils.verify_signature_rsa(message, signature, public_key)
 
 ## Chạy kiểm thử
 
+Dự án sử dụng `pytest` để thực hiện kiểm thử tự động (Unit Test) cho toàn bộ các module mật mã:
+
 ```powershell
 python -m pytest
+# hoặc
+pytest tests/
 ```
 
 Các test hiện có kiểm tra vòng đời mã hóa/giải mã tệp, băm mật khẩu và tạo/xác minh chữ ký RSA.
+
+#### Báo cáo kết quả kiểm thử (Test Report)
+
+![Kết quả chạy kiểm thử Pytest](docs/images/pytest_result.png)
+
+**Chi tiết kết quả kiểm thử:**
+- **Môi trường thử nghiệm:** Python 3.13.15, `pytest-9.1.1`, nền tảng Windows (`win32`).
+- **Tổng số ca kiểm thử:** 6 test cases thu thập từ thư mục `tests/`.
+- **Kết quả chi tiết theo module:**
+  1. `tests/test_aes_utils.py` (1 test): Kiểm thử quy trình mã hóa và giải mã tệp bằng AES-GCM, đối sánh nội dung giải mã với tệp gốc đảm bảo tính toàn vẹn dữ liệu.
+  2. `tests/test_hash_utils.py` (2 tests): Kiểm thử thuật toán băm mật khẩu Argon2 (hàm `hash_password_secure`), xác thực thành công với mật khẩu đúng và phát hiện/từ chối khi mật khẩu sai.
+  3. `tests/test_rsa_utils.py` (3 tests): Kiểm thử sinh cặp khóa RSA 2048-bit, ký dữ liệu với SHA-256, xác minh chữ ký hợp lệ và phát hiện dữ liệu bị can thiệp/chữ ký không hợp lệ.
+- **Đánh giá chung:** **6 passed in 0.59s (100% Passed)**. Tất cả các hàm mật mã cốt lõi hoạt động chính xác theo đặc tả yêu cầu, kiểm thử diễn ra trơn tru và không phát sinh lỗi ngoại lệ.
+
 
 ## Lưu ý về khóa AES
 
