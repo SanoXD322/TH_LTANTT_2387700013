@@ -202,18 +202,22 @@ Sau khi triển khai, ứng dụng đã hoàn thành các tiêu chí chính sau:
 ```markdown
 ![Hình 1: Server đang chạy trên localhost:8443](./assets/server-running.png)
 ```
+<img width="1035" height="162" alt="image" src="https://github.com/user-attachments/assets/92424bc8-a7d6-44ef-87e0-79bda62c0ab3" />
+
 
 ### 10.2. Client kết nối và gửi tin nhắn
 
 ```markdown
 ![Hình 2: Client đăng nhập và gửi tin nhắn](./assets/client-chat.png)
 ```
+<img width="1017" height="250" alt="image" src="https://github.com/user-attachments/assets/7b2c51c1-883f-4abe-9391-de4ebfb95ebe" />
 
 ### 10.3. Kết quả trao đổi giữa hai client
 
 ```markdown
 ![Hình 3: Hai client trao đổi tin nhắn an toàn](./assets/chat-demo.png)
 ```
+<img width="1042" height="402" alt="image" src="https://github.com/user-attachments/assets/d84ef32e-24c1-4373-a946-5e3f28275423" />
 
 ## 11. Nhận xét và bài học
 
