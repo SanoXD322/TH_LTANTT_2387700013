@@ -25,7 +25,7 @@ pytest tests/
 ```
 *Kết quả Pytest:*
 <!-- CHÈN ẢNH KẾT QUẢ PYTEST VÀO BÊN DƯỚI -->
-![Kết quả Pytest](link_anh_pytest_cua_ban_tai_day.png)
+![alt text](image.png)
 
 ### 2. Khởi chạy Server và Cấp Token
 Khởi chạy máy chủ API Gateway và sinh ra Access/Refresh Token:
@@ -34,7 +34,7 @@ python main.py
 ```
 *Giao diện cấp Token:*
 <!-- CHÈN ẢNH TERMINAL IN RA ACCESS TOKEN VÀO BÊN DƯỚI -->
-![Token Generate](link_anh_terminal_token_cua_ban_tai_day.png)
+![alt text](image-1.png)
 
 ### 3. Kiểm tra Xác thực API (cURL)
 Mở một terminal khác và sử dụng Access Token vừa được cấp để truy cập tài nguyên bảo mật:
@@ -43,4 +43,4 @@ curl.exe -H "Authorization: Bearer <dán_access_token_vào_đây>" http://127.0.
 ```
 *Kết quả Xác thực Thành công:*
 <!-- CHÈN ẢNH KẾT QUẢ CURL TRẢ VỀ "Access granted" VÀO BÊN DƯỚI -->
-![Xác thực API](link_anh_curl_success_cua_ban_tai_day.png)
+![alt text](image-2.png)
