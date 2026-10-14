@@ -26,7 +26,7 @@ python -m unittest discover tests
 ```
 *Kết quả Unit Test:*
 <!-- CHÈN ẢNH KẾT QUẢ UNIT TEST VÀO BÊN DƯỚI -->
-c:\Users\Sano\OneDrive\Pictures\Screenshots 1\Screenshot 2026-10-14 082155.png
+![alt text](image.png)
 
 ### 2. Chạy qua giao diện dòng lệnh (CLI)
 Chạy kịch bản quét trực tiếp trên terminal:
@@ -35,7 +35,7 @@ python main.py
 ```
 *Kết quả CLI Report:*
 <!-- CHÈN ẢNH KẾT QUẢ TERMINAL BÁO CÁO VÀO BÊN DƯỚI -->
-c:\Users\Sano\OneDrive\Pictures\Screenshots 1\Screenshot 2026-10-14 082408.png
+![alt text](image-1.png)
 
 ### 3. Chạy giao diện Web (UI)
 Khởi chạy server Flask để sử dụng giao diện web:
@@ -46,4 +46,4 @@ Sau đó truy cập `http://127.0.0.1:5000` trên trình duyệt.
 
 *Giao diện trang chủ và Kết quả Web:*
 <!-- CHÈN ẢNH GIAO DIỆN WEB VÀ KẾT QUẢ QUÉT VÀO BÊN DƯỚI -->
-c:\Users\Sano\OneDrive\Pictures\Screenshots 1\Screenshot 2026-10-14 082542.png
+![alt text](image-2.png)
