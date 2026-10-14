@@ -541,3 +541,89 @@ Interface: 172.20.10.2 --- 0xe
   255.255.255.255       ff-ff-ff-ff-ff-ff     static    
 
 INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 09:50:14] "POST /scan HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.2:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 113-782-588
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 10:10:16] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 10:10:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:root:[2026-10-07 10:13:39] Running service detection on 10.14.89.200: 22,80,443
+INFO:root:[2026-10-07 10:13:43] Starting Nmap 7.991 ( https://nmap.org ) at 2026-10-07 10:13 +0700
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 3.34 seconds
+
+INFO:root:[2026-10-07 10:13:49] Mapping network...
+INFO:root:[2026-10-07 10:13:49] 
+Interface: 192.168.124.1 --- 0x3
+  Internet Address      Physical Address      Type
+  192.168.124.254       00-50-56-ea-f1-43     dynamic   
+  192.168.124.255       ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+Interface: 192.168.9.1 --- 0x5
+  Internet Address      Physical Address      Type
+  192.168.9.254         00-50-56-e6-b5-d7     dynamic   
+  192.168.9.255         ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+Interface: 172.20.10.2 --- 0xe
+  Internet Address      Physical Address      Type
+  172.20.10.1           ee-28-d3-e7-8e-64     dynamic   
+  172.20.10.15          ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 10:13:54] "POST /scan HTTP/1.1" 200 -
+INFO:root:[2026-10-07 10:13:55] Running service detection on 10.14.89.200: 22,80,443
+INFO:root:[2026-10-07 10:13:59] Starting Nmap 7.991 ( https://nmap.org ) at 2026-10-07 10:13 +0700
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 3.33 seconds
+
+INFO:root:[2026-10-07 10:14:05] Mapping network...
+INFO:root:[2026-10-07 10:14:05] 
+Interface: 192.168.124.1 --- 0x3
+  Internet Address      Physical Address      Type
+  192.168.124.254       00-50-56-ea-f1-43     dynamic   
+  192.168.124.255       ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+Interface: 192.168.9.1 --- 0x5
+  Internet Address      Physical Address      Type
+  192.168.9.254         00-50-56-e6-b5-d7     dynamic   
+  192.168.9.255         ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+Interface: 172.20.10.2 --- 0xe
+  Internet Address      Physical Address      Type
+  172.20.10.1           ee-28-d3-e7-8e-64     dynamic   
+  172.20.10.15          ff-ff-ff-ff-ff-ff     static    
+  224.0.0.22            01-00-5e-00-00-16     static    
+  224.0.0.251           01-00-5e-00-00-fb     static    
+  224.0.0.252           01-00-5e-00-00-fc     static    
+  239.255.255.250       01-00-5e-7f-ff-fa     static    
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static    
+
+INFO:werkzeug:127.0.0.1 - - [07/Oct/2026 10:14:11] "POST /scan HTTP/1.1" 200 -
