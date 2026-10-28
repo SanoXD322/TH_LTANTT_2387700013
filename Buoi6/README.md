@@ -48,7 +48,8 @@ docker exec -it gitlab-runner gitlab-runner register `
 
 4. Runner được gán (assign) cho cả hai project của bài lab và hiển thị trạng thái **Online**.
 
-![Runner tự quản lý ở trạng thái Online](images/Screenshot%202026-10-28%20093824.png)
+![Runner tự quản lý ở trạng thái Online]
+<img width="945" height="655" alt="Screenshot 2026-10-28 093824" src="https://github.com/user-attachments/assets/f36af615-28e4-4eba-b4cd-7a9df1d8cc6d" />
 
 ---
 
@@ -91,14 +92,19 @@ Pipeline có 3 stage chạy tuần tự **build → test → deploy**. Hai job `
 **Sơ đồ pipeline #2997080026:** cả 4 job đều Passed.
 
 ![Sơ đồ pipeline Phần 1](images/Screenshot%202026-10-28%20084907.png)
+<img width="1130" height="856" alt="Screenshot 2026-10-28 084907" src="https://github.com/user-attachments/assets/26cdf399-751c-4c3b-bafa-30738fb96a59" />
+
 
 **Danh sách job và thời gian chạy:** `test-job2` (30s) chạy lâu hơn `test-job1` (9s), đúng như mong đợi.
 
 ![Danh sách job Phần 1](images/Screenshot%202026-10-28%20084923.png)
+<img width="1143" height="902" alt="Screenshot 2026-10-28 084923" src="https://github.com/user-attachments/assets/c4666e84-6dd1-4ccf-9fef-953addc37c61" />
+
 
 **Log job `deploy-prod`:** biến `$CI_COMMIT_BRANCH` được thay bằng `main`.
 
 ![Log deploy-prod](images/Screenshot%202026-10-28%20084947.png)
+<img width="1138" height="896" alt="Screenshot 2026-10-28 084947" src="https://github.com/user-attachments/assets/688d7c8e-b427-40ef-916e-b2daccd2aa50" />
 
 ---
 
@@ -142,6 +148,7 @@ test-job:
 Log in ra dòng chữ và thời gian hệ thống của runner:
 
 ![Log test-job](images/Screenshot%202026-10-28%20095604.png)
+<img width="916" height="871" alt="Screenshot 2026-10-28 095604" src="https://github.com/user-attachments/assets/236548d5-3fa4-496f-8670-68ac5d3cd351" />
 
 ### 4.3. Bước 2: Job build
 
@@ -159,10 +166,12 @@ build-job:
 Job chạy trong container `node:lts`, cài 1295 gói npm, build thành công (`[SUCCESS] Generated static files in "build"`) và upload 139 file làm artifact:
 
 ![Log build-job](images/Screenshot%202026-10-28%20095917.png)
+<img width="1220" height="912" alt="Screenshot 2026-10-28 095917" src="https://github.com/user-attachments/assets/52ebd68e-a3ae-46c4-b6da-008192cb6460" />
 
 Nội dung artifact `build/` gồm `index.html`, `404.html`, `sitemap.xml` và các thư mục `assets`, `blog`, `docs`, `img`:
 
 ![Artifact build](images/Screenshot%202026-10-28%20095853.png)
+<img width="1586" height="878" alt="Screenshot 2026-10-28 095853" src="https://github.com/user-attachments/assets/3f6ca621-5ce7-4459-b4b8-54f92cbe948d" />
 
 ### 4.4. Bước 3: Deploy lên GitLab Pages
 
@@ -193,10 +202,13 @@ pages:
 Job `pages` nhận artifact `build/` từ stage trước, đổi tên thành `public/` (thư mục bắt buộc của GitLab Pages). GitLab tự sinh thêm job `pages:deploy` để publish trang.
 
 ![Pipeline deploy Pages](images/Screenshot%202026-10-28%20100224.png)
+<img width="917" height="598" alt="Screenshot 2026-10-28 100224" src="https://github.com/user-attachments/assets/97944fbe-025f-4a9f-800b-e4e52d45987d" />
+
 
 Trang **Deploy → Pages** xác nhận bản deploy đang hoạt động (Active), gồm 139 file trong thư mục `/public`:
 
 ![Trang quản lý GitLab Pages](images/Screenshot%202026-10-28%20100932.png)
+<img width="945" height="757" alt="Screenshot 2026-10-28 100932" src="https://github.com/user-attachments/assets/d45a387e-1526-43eb-899e-323c4fbd1c29" />
 
 Lúc đầu GitLab bật *unique domain* (`my-pipeline-tutorial-project-f5b7d9.gitlab.io`) nên trang bị mất CSS do không khớp `baseUrl`. Sau khi tắt tùy chọn này trong tab **Domains & settings**, trang được phục vụ đúng tại địa chỉ dạng `<username>.gitlab.io/<project>/`.
 
@@ -205,6 +217,7 @@ Lúc đầu GitLab bật *unique domain* (`my-pipeline-tutorial-project-f5b7d9.g
 Trang Docusaurus hiển thị đầy đủ giao diện tại https://sanoxd322.gitlab.io/my-pipeline-tutorial-project/
 
 ![Trang Docusaurus trên GitLab Pages](images/Screenshot%202026-10-28%20101211.png)
+<img width="1911" height="1005" alt="Screenshot 2026-10-28 101211" src="https://github.com/user-attachments/assets/f5d774f7-2258-4481-b132-39b3bd01a0ec" />
 
 ---
 
